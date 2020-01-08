@@ -2,11 +2,9 @@ FROM ubuntu:bionic
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-      clang \
       cmake \
       curl \
       g++ \
-      gcc \
       gfortran \
       git \
       hdf5-tools \
