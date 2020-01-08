@@ -60,27 +60,27 @@ ENV CMAKE_PREFIX_PATH=/opt/triqs/lib/cmake/triqs:/opt/triqs/lib/cmake/cpp2py:$CM
 RUN git clone https://github.com/TRIQS/triqs triqs.src && \
     mkdir -p triqs.build && cd triqs.build && \
     cmake ../triqs.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make -j$NCORES && make install
+    make  && make install
 
 RUN git clone https://github.com/TRIQS/dft_tools dft_tools.src && \
     mkdir -p dft_tools.build && cd dft_tools.build && \
     cmake ../dft_tools.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make -j$NCORES && make install
+    make  && make install
 
 RUN git clone https://github.com/TRIQS/cthyb cthyb.src && \
     mkdir -p cthyb.build && cd cthyb.build && \
     cmake ../cthyb.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make -j$NCORES && make install
+    make  && make install
 
 RUN git clone https://github.com/TRIQS/maxent maxent.src && \
     mkdir -p maxent.build && cd maxent.build && \
     cmake ../maxent.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make -j$NCORES && make install
+    make  && make install
 
 RUN git clone https://github.com/TRIQS/tprf tprf.src && \
     mkdir -p tprf.build && cd tprf.build && \
     cmake ../tprf.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make -j$NCORES && make install
+    make  && make install
 
 RUN rm -rf /tmp/*.build /tmp/*.src
 
