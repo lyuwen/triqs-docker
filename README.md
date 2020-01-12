@@ -13,5 +13,5 @@ docker run [--name <contailer name>] [-v <host dir>:<container dir>] -p 8888:888
 
 * Command line
 ```
-docker run [--name <contailer name>] [-v <host dir>:<container dir>] -ti docker/triqs bash
+docker run [--name <contailer name>] [-v <host dir>:<container dir>] -ti fulvwen/triqs bash
 ```
