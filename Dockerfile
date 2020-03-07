@@ -4,13 +4,11 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       cmake \
       curl \
-      g++ \
       gfortran \
       git \
       hdf5-tools \
       libblas-dev \
       libboost-all-dev \
-      libclang-dev \
       libfftw3-dev \
       libgfortran3 \
       libgmp-dev \
@@ -20,7 +18,6 @@ RUN apt-get update && \
       libopenmpi-dev \
       openssh-client \
       python-backports-shutil-get-terminal-size \
-      python-clang-6.0 \
       python-configparser \
       python-dev \
       python-h5py \
@@ -33,12 +30,23 @@ RUN apt-get update && \
       python-setuptools \
       python-tk \
       sudo \
+      clang-9 \
+      clang-format-9 \
+      libclang-9-dev \
+      python-clang-9 \
+      libomp-9-dev \
       && \
     apt-get autoremove --purge -y && \
     apt-get autoclean -y && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
 RUN pip install --no-cache-dir notebook==5.* ipython==5.* ipykernel==4.*
+
+# clang compliers
+ENV CC=clang-9
+ENV OMPI_CC=$CC
+ENV CXX=clang++-9
+ENV OMPI_CXX=$CXX
 
 ENV INSTALL_PREFIX=/opt/triqs
 
@@ -50,7 +58,7 @@ ENV CPATH=/usr/include/openmpi:/usr/include/hdf5/serial:$CPATH
 ENV TRIQS_ROOT=/opt/triqs
 ENV CPLUS_INCLUDE_PATH=/opt/triqs/include:$CPLUS_INCLUDE_PATH
 ENV PATH=/opt/triqs/bin:$PATH
-ENV LIBRARY_PATH=/opt/triqs/lib:$LIBRARY_PATH 
+ENV LIBRARY_PATH=/opt/triqs/lib:/usr/lib/llvm-9/lib:$LIBRARY_PATH 
 ENV LD_LIBRARY_PATH=/opt/triqs/lib:$LD_LIBRARY_PATH 
 ENV PYTHONPATH=/opt/triqs/lib/python2.7/site-packages:$PYTHONPATH
 ENV CMAKE_PREFIX_PATH=/opt/triqs/lib/cmake/triqs:/opt/triqs/lib/cmake/cpp2py:$CMAKE_PREFIX_PATH
