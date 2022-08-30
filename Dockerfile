@@ -1,45 +1,45 @@
-FROM ubuntu:bionic
+FROM ubuntu:latest
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       cmake \
       curl \
-      g++ \
+      g++-10 \
       gfortran \
       git \
+      clang \
       hdf5-tools \
       libblas-dev \
       libboost-all-dev \
       libclang-dev \
       libfftw3-dev \
-      libgfortran3 \
+      libgfortran5 \
       libgmp-dev \
       libhdf5-dev \
       liblapack-dev \
       libnfft3-dev \
       libopenmpi-dev \
       openssh-client \
-      python-backports-shutil-get-terminal-size \
-      python-clang-6.0 \
-      python-configparser \
-      python-dev \
-      python-h5py \
-      python-mako \
-      python-matplotlib \
-      python-mpi4py \
-      python-numpy \
-      python-pip \
-      python-scipy \
-      python-setuptools \
-      python-tk \
+      python3-dev \
+      python3-h5py \
+      python3-mako \
+      python3-matplotlib \
+      python3-mpi4py \
+      python3-numpy \
+      python3-pip \
+      python3-scipy \
+      python3-setuptools \
+      python3-tk \
       sudo \
+      jupyter-notebook \
       && \
     apt-get autoremove --purge -y && \
     apt-get autoclean -y && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir notebook==5.* ipython==5.* ipykernel==4.*
+RUN pip install --no-cache-dir jupyter
 
+ENV CXX=g++
 ENV INSTALL_PREFIX=/opt/triqs
 
 RUN mkdir -p $INSTALL_PREFIX
