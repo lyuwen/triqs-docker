@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM fulvwen/clang:latest
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -7,11 +7,9 @@ RUN apt-get update && \
       g++-10 \
       gfortran \
       git \
-      clang \
       hdf5-tools \
       libblas-dev \
       libboost-all-dev \
-      libclang-dev \
       libfftw3-dev \
       libgfortran5 \
       libgmp-dev \
@@ -37,7 +35,8 @@ RUN apt-get update && \
 
 RUN pip install --no-cache-dir jupyter
 
-ENV CXX=g++
+ENV CXX=clang++-14
+ENV CC=clang-14
 ENV INSTALL_PREFIX=/opt/triqs
 
 RUN mkdir -p $INSTALL_PREFIX
