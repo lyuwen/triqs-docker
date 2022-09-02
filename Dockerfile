@@ -10,7 +10,7 @@ RUN apt-get update && \
       libblas-dev \
       libboost-all-dev \
       libfftw3-dev \
-      libgfortran3 \
+      libgfortran5 \
       libgmp-dev \
       libhdf5-dev \
       liblapack-dev \
@@ -30,22 +30,22 @@ RUN apt-get update && \
       python-setuptools \
       python-tk \
       sudo \
-      clang-9 \
-      clang-format-9 \
-      libclang-9-dev \
-      python-clang-9 \
-      libomp-9-dev \
+      clang-14 \
+      clang-format-14 \
+      libclang-14-dev \
+      python-clang-14 \
+      libomp-14-dev \
       && \
     apt-get autoremove --purge -y && \
     apt-get autoclean -y && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir notebook==5.* ipython==5.* ipykernel==4.*
+RUN pip install --no-cache-dir jupyter
 
 # clang compliers
-ENV CC=clang-9
+ENV CC=clang-14
 ENV OMPI_CC=$CC
-ENV CXX=clang++-9
+ENV CXX=clang++-14
 ENV OMPI_CXX=$CXX
 
 ENV INSTALL_PREFIX=/opt/triqs
@@ -58,7 +58,7 @@ ENV CPATH=/usr/include/openmpi:/usr/include/hdf5/serial:$CPATH
 ENV TRIQS_ROOT=/opt/triqs
 ENV CPLUS_INCLUDE_PATH=/opt/triqs/include:$CPLUS_INCLUDE_PATH
 ENV PATH=/opt/triqs/bin:$PATH
-ENV LIBRARY_PATH=/opt/triqs/lib:/usr/lib/llvm-9/lib:$LIBRARY_PATH 
+ENV LIBRARY_PATH=/opt/triqs/lib:/usr/lib/llvm-14/lib:$LIBRARY_PATH
 ENV LD_LIBRARY_PATH=/opt/triqs/lib:$LD_LIBRARY_PATH 
 ENV PYTHONPATH=/opt/triqs/lib/python2.7/site-packages:$PYTHONPATH
 ENV CMAKE_PREFIX_PATH=/opt/triqs/lib/cmake/triqs:/opt/triqs/lib/cmake/cpp2py:$CMAKE_PREFIX_PATH
