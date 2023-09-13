@@ -1,31 +1,21 @@
-FROM fulvwen/clang:latest
+FROM ubuntu:latest
+
+RUN sed -i -e 's/archive.ubuntu.com/mirrors.ustc.edu.cn/' -e 's/security.ubuntu.com/mirrors.ustc.edu.cn/' /etc/apt/sources.list
 
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-      cmake \
+      make cmake g++-12 gfortran git hdf5-tools \
+      libblas-dev libboost-dev libfftw3-dev libgfortran5 \
+      libgmp-dev libhdf5-dev liblapack-dev libopenmpi-dev \
+      python3-dev python3-mako python3-matplotlib \
+      python3-mpi4py python3-numpy python3-scipy \
       curl \
-      g++-10 \
-      gfortran \
-      git \
-      hdf5-tools \
-      libblas-dev \
       libboost-all-dev \
-      libfftw3-dev \
-      libgfortran5 \
-      libgmp-dev \
-      libhdf5-dev \
-      liblapack-dev \
       libnfft3-dev \
       libopenmpi-dev \
       openssh-client \
-      python3-dev \
       python3-h5py \
-      python3-mako \
-      python3-matplotlib \
-      python3-mpi4py \
-      python3-numpy \
       python3-pip \
-      python3-scipy \
       python3-setuptools \
       sudo \
       && \
@@ -35,8 +25,8 @@ RUN apt-get update && \
 
 RUN pip install --no-cache-dir jupyter
 
-ENV CXX=clang++-14
-ENV CC=clang-14
+ENV CXX=g++-12
+ENV CC=gcc-12
 ENV INSTALL_PREFIX=/opt/triqs
 
 RUN mkdir -p $INSTALL_PREFIX
@@ -57,25 +47,25 @@ RUN git clone https://github.com/TRIQS/triqs triqs.src && \
     cmake ../triqs.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
     make  && make install
 
-# RUN git clone https://github.com/TRIQS/dft_tools dft_tools.src && \
-#     mkdir -p dft_tools.build && cd dft_tools.build && \
-#     cmake ../dft_tools.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-#     make  && make install
-#
-# RUN git clone https://github.com/TRIQS/cthyb cthyb.src && \
-#     mkdir -p cthyb.build && cd cthyb.build && \
-#     cmake ../cthyb.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-#     make  && make install
-#
-# RUN git clone https://github.com/TRIQS/maxent maxent.src && \
-#     mkdir -p maxent.build && cd maxent.build && \
-#     cmake ../maxent.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-#     make  && make install
-#
-# RUN git clone https://github.com/TRIQS/tprf tprf.src && \
-#     mkdir -p tprf.build && cd tprf.build && \
-#     cmake ../tprf.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-#     make  && make install
+RUN git clone https://github.com/TRIQS/dft_tools dft_tools.src && \
+    mkdir -p dft_tools.build && cd dft_tools.build && \
+    cmake ../dft_tools.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
+    make  && make install
+
+RUN git clone https://github.com/TRIQS/cthyb cthyb.src && \
+    mkdir -p cthyb.build && cd cthyb.build && \
+    cmake ../cthyb.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
+    make  && make install
+
+RUN git clone https://github.com/TRIQS/maxent maxent.src && \
+    mkdir -p maxent.build && cd maxent.build && \
+    cmake ../maxent.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
+    make  && make install
+
+RUN git clone https://github.com/TRIQS/tprf tprf.src && \
+    mkdir -p tprf.build && cd tprf.build && \
+    cmake ../tprf.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
+    make  && make install
 
 RUN rm -rf /tmp/*.build /tmp/*.src
 
