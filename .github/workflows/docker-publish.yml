@@ -12,7 +12,7 @@ on:
     branhes-ignore:
       - test**
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    # tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "master" ]
   workflow_dispatch:
