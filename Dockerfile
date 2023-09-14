@@ -5,6 +5,7 @@ RUN sed -i -e 's/archive.ubuntu.com/mirrors.ustc.edu.cn/' -e 's/security.ubuntu.
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       make cmake g++-12 gfortran git hdf5-tools \
+      clang libclang-dev python3-clang \
       libblas-dev libboost-dev libfftw3-dev libgfortran5 \
       libgmp-dev libhdf5-dev liblapack-dev libopenmpi-dev \
       python3-dev python3-mako python3-matplotlib \
@@ -45,29 +46,32 @@ ENV CMAKE_PREFIX_PATH=/opt/triqs/lib/cmake/triqs:/opt/triqs/lib/cmake/cpp2py:$CM
 RUN git clone https://github.com/TRIQS/triqs triqs.src && \
     mkdir -p triqs.build && cd triqs.build && \
     cmake ../triqs.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make  && make install
+    make  && make install && \
+    rm -rf /tmp/triqs.src /tmp/triqs.build
 
 RUN git clone https://github.com/TRIQS/dft_tools dft_tools.src && \
     mkdir -p dft_tools.build && cd dft_tools.build && \
     cmake ../dft_tools.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make  && make install
+    make  && make install && \
+    rm -rf /tmp/dft_tools.src /tmp/dft_tools.build
 
 RUN git clone https://github.com/TRIQS/cthyb cthyb.src && \
     mkdir -p cthyb.build && cd cthyb.build && \
     cmake ../cthyb.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make  && make install
+    make  && make install && \
+    rm -rf /tmp/cthyb.src /tmp/cthyb.build
 
 RUN git clone https://github.com/TRIQS/maxent maxent.src && \
     mkdir -p maxent.build && cd maxent.build && \
     cmake ../maxent.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make  && make install
+    make  && make install && \
+    rm -rf /tmp/maxent.src /tmp/maxent.build
 
 RUN git clone https://github.com/TRIQS/tprf tprf.src && \
     mkdir -p tprf.build && cd tprf.build && \
     cmake ../tprf.src -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX && \
-    make  && make install
-
-RUN rm -rf /tmp/*.build /tmp/*.src
+    make  && make install && \
+    rm -rf /tmp/tprf.src /tmp/tprf.build
 
 ARG NB_USER=triqs
 ARG NB_UID=1000
