@@ -7,13 +7,12 @@ RUN apt-get update && \
       make cmake g++-12 gfortran git hdf5-tools \
       clang libclang-dev python3-clang \
       libblas-dev libboost-dev libfftw3-dev libgfortran5 \
-      libgmp-dev libhdf5-dev liblapack-dev libopenmpi-dev \
+      libgmp-dev libhdf5-dev liblapack-dev libmpich-dev \
       python3-dev python3-mako python3-matplotlib \
       python3-mpi4py python3-numpy python3-scipy \
       curl \
       libboost-all-dev \
       libnfft3-dev \
-      libopenmpi-dev \
       openssh-client \
       python3-h5py \
       python3-pip \
@@ -34,7 +33,7 @@ RUN mkdir -p $INSTALL_PREFIX
 
 WORKDIR /tmp
 
-ENV CPATH=/usr/include/openmpi:/usr/include/hdf5/serial:$CPATH
+ENV CPATH=/usr/include/x86_64-linux-gnu/mpich:/usr/include/hdf5/serial:$CPATH
 ENV TRIQS_ROOT=/opt/triqs
 ENV CPLUS_INCLUDE_PATH=/opt/triqs/include:$CPLUS_INCLUDE_PATH
 ENV PATH=/opt/triqs/bin:$PATH
