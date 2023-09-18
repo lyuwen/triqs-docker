@@ -81,7 +81,7 @@ USER $NB_USER
 WORKDIR /home/$NB_USER
 
 RUN curl -L https://api.github.com/repos/TRIQS/tutorials/tarball/unstable | tar xzf - --one-top-level=tutorials --strip-components=1
-WORKDIR /home/$NB_USER/tutorials/TRIQSTutorialsPython
+WORKDIR /home/$NB_USER
 
 EXPOSE 8888
 CMD ["jupyter","notebook","--ip","0.0.0.0"]
