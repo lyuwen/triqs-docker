@@ -39,7 +39,7 @@ ENV CPLUS_INCLUDE_PATH=/opt/triqs/include:$CPLUS_INCLUDE_PATH
 ENV PATH=/opt/triqs/bin:$PATH
 ENV LIBRARY_PATH=/opt/triqs/lib:$LIBRARY_PATH 
 ENV LD_LIBRARY_PATH=/opt/triqs/lib:$LD_LIBRARY_PATH 
-ENV PYTHONPATH=/opt/triqs/lib/python2.7/site-packages:$PYTHONPATH
+ENV PYTHONPATH=/opt/triqs/lib/python3.10/site-packages:$PYTHONPATH
 ENV CMAKE_PREFIX_PATH=/opt/triqs/lib/cmake/triqs:/opt/triqs/lib/cmake/cpp2py:$CMAKE_PREFIX_PATH
 
 RUN git clone https://github.com/TRIQS/triqs triqs.src && \
