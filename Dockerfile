@@ -9,7 +9,7 @@ RUN apt-get update && \
       libblas-dev libboost-dev libfftw3-dev libgfortran5 \
       libgmp-dev libhdf5-dev liblapack-dev libmpich-dev \
       python3-dev python3-mako python3-matplotlib \
-      python3-mpi4py python3-numpy python3-scipy \
+      python3-numpy python3-scipy \
       curl \
       libboost-all-dev \
       libnfft3-dev \
@@ -23,7 +23,8 @@ RUN apt-get update && \
     apt-get autoclean -y && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
-RUN pip install --no-cache-dir jupyter
+ENV MPICC=mpicc.mpich
+RUN pip install --no-cache-dir jupyter mpi4py
 
 ENV CXX=g++-12
 ENV CC=gcc-12
