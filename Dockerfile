@@ -23,6 +23,11 @@ RUN apt-get update && \
     apt-get autoclean -y && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
+
+RUN update-alternatives --set mpi                  /usr/bin/mpicc.mpich && \
+    update-alternatives --set mpi-x86_64-linux-gnu /usr/include/x86_64-linux-gnu/mpich && \
+    update-alternatives --set mpirun               /usr/bin/mpirun.mpich
+
 ENV MPICC=mpicc.mpich
 RUN pip install --no-cache-dir jupyter mpi4py
 
