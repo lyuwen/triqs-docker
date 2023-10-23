@@ -18,6 +18,7 @@ RUN apt-get update && \
       python3-pip \
       python3-setuptools \
       sudo \
+      libucx-dev ucx-utils \
       && \
     apt-get autoremove --purge -y && \
     apt-get autoclean -y && \
