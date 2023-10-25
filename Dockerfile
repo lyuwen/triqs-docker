@@ -1,4 +1,5 @@
-FROM ubuntu:latest
+# FROM ubuntu:latest
+FROM ghcr.io/lyuwen/mpich-ucx:main
 
 RUN sed -i -e 's/archive.ubuntu.com/mirrors.ustc.edu.cn/' -e 's/security.ubuntu.com/mirrors.ustc.edu.cn/' /etc/apt/sources.list
 
@@ -7,7 +8,7 @@ RUN apt-get update && \
       make cmake g++-12 gfortran git hdf5-tools \
       clang libclang-dev python3-clang \
       libblas-dev libboost-dev libfftw3-dev libgfortran5 \
-      libgmp-dev libhdf5-dev liblapack-dev libmpich-dev \
+      libgmp-dev libhdf5-dev liblapack-dev \
       python3-dev python3-mako python3-matplotlib \
       python3-numpy python3-scipy \
       curl \
@@ -25,11 +26,7 @@ RUN apt-get update && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/*
 
 
-RUN update-alternatives --set mpi                  /usr/bin/mpicc.mpich && \
-    update-alternatives --set mpi-x86_64-linux-gnu /usr/include/x86_64-linux-gnu/mpich && \
-    update-alternatives --set mpirun               /usr/bin/mpirun.mpich
-
-ENV MPICC=mpicc.mpich
+ENV MPICC=mpicc
 RUN pip install --no-cache-dir jupyter mpi4py
 
 ENV CXX=g++-12
@@ -40,7 +37,7 @@ RUN mkdir -p $INSTALL_PREFIX
 
 WORKDIR /tmp
 
-ENV CPATH=/usr/include/x86_64-linux-gnu/mpich:/usr/include/hdf5/serial:$CPATH
+ENV CPATH=/usr/include/hdf5/serial:$CPATH
 ENV TRIQS_ROOT=/opt/triqs
 ENV CPLUS_INCLUDE_PATH=/opt/triqs/include:$CPLUS_INCLUDE_PATH
 ENV PATH=/opt/triqs/bin:$PATH
