@@ -27,7 +27,7 @@ RUN apt-get update && \
 
 
 ENV MPICC=mpicc
-RUN pip install --no-cache-dir jupyter mpi4py
+RUN pip install --no-cache-dir jupyter mpi4py 'jupyter-client>8.5.0'
 
 ENV CXX=g++-12
 ENV CC=gcc-12
